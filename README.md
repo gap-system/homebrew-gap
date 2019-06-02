@@ -18,3 +18,8 @@ and then enter the following command:
 
     Read( Filename( DirectoriesLibrary("tst"), "testinstall.g" ));
    
+Credits
+
+The initial formula for GAP has been provided by Alexey Muranov
+and has been migrated to this repository after the deprecation of 
+`homebrew-science` (<https://github.com/Homebrew/homebrew-science>).
