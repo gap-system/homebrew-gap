@@ -7,11 +7,11 @@ as possible.
 
 To perform GAP Homebrew installation for the first time, call
 
-    brew install gap-system/homebrew-gap/gap
+    brew install gap-system/gap/gap
 
 To upgrade an existing GAP Homebrew installation, call
 
-    brew upgrade gap-system/homebrew-gap/gap
+    brew upgrade gap-system/gap/gap
 
 To run a quick test of the GAP Homebrew installation, start GAP
 and then enter the following command:
