@@ -4,7 +4,6 @@ class Gap < Formula
   url "https://www.gap-system.org/pub/gap/gap-4.10/tar.bz2/gap-4.10.1.tar.bz2"
   sha256 "2038527a26f1c796cb6d6d54011b43a54de199ccfafd22a176817006f707da8c"
 
-  depends_on "gmp"
   # GAP cannot be built against the native macOS version of readline
   # it requires either GNU readline, or no readline at all; but
   # the latter leads to an inferior user experience.
