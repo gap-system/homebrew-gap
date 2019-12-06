@@ -50,7 +50,7 @@ class Gap < Formula
   end
 
   test do
-    ENV["LC_ALL"] = "en_GB.UTF-8"
+    ENV["LC_CTYPE"] = "en_GB.UTF-8"
     system bin/"gap", "-r", "-A", "#{libexec}/tst/testinstall.g"
   end
 end
