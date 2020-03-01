@@ -13,8 +13,11 @@ To upgrade an existing GAP Homebrew installation, call
 
     brew upgrade gap-system/gap/gap
 
-To run a quick test of the GAP Homebrew installation, start GAP
-and then enter the following command:
+To test the GAP Homebrew installation, call
+
+    brew test gap-system/gap/gap
+
+For the test with a more verbose output, start GAP and then call
 
     Read( Filename( DirectoriesLibrary("tst"), "testinstall.g" ));
    
