@@ -28,6 +28,7 @@ class Gap < Formula
     #   This use of `libexec` seems to contradict Linux Filesystem Hierarchy
     #   Standard, but is recommended in Homebrew's "Formula Cookbook."
 
+    pkgshare.install Dir["pkg"]
     libexec.install Dir["*"]
 
     # GAP does not support "make install" so it has to be compiled in place
@@ -39,14 +40,19 @@ class Gap < Formula
 
     # Create a symlink `bin/gap` from the `gap` binary
     bin.install_symlink libexec/"gap" => "gap"
-
+    libexec.install_symlink pkgshare/"pkg" => "pkg"
+    
     ohai "Building included packages. Please be patient, it may take a while"
-    cd libexec/"pkg" do
+    cd pkgshare/"pkg" do
       # NOTE: This script will build most of the packages that require
       # compilation. It is known to produce a number of warnings and
       # error messages, possibly failing to build several packages.
-      system "../bin/BuildPackages.sh", "--with-gaproot=#{libexec}"
+      system "../../../libexec/bin/BuildPackages.sh", "--with-gaproot=#{libexec}"
     end
+
+    # Now remove the symlink to pkgshare/"pkg", and put one to /usr/local/share/gap/pkg, so we can access global packages too
+    rm libexec/"pkg"
+    ln_s "/usr/local/share/gap/pkg", libexec/"pkg"
   end
 
   test do
