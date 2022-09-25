@@ -1,6 +1,6 @@
-# UNMAINTAINER -- UNOFFICIAL
+# UNMAINTAINED & UNOFFICIAL
 
-This repository is not maintained and not official. Use at your own risk.
+This repository is not maintained and not officialy supported by the GAP team. Use at your own risk.
 
 ## homebrew-gap
 
