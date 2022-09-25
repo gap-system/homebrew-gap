@@ -1,4 +1,8 @@
-# homebrew-gap
+# UNMAINTAINER -- UNOFFICIAL
+
+This repository is not maintained and not official. Use at your own risk.
+
+## homebrew-gap
 
 *Homebrew* (<http://brew.sh/>) is the package manager for macOS.
 This is the Homebrew tap for GAP, which will install the latest
