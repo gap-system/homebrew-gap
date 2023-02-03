@@ -1,8 +1,8 @@
 class Gap < Formula
   desc "System for computational discrete algebra"
   homepage "https://www.gap-system.org/"
-  url "https://github.com/gap-system/gap/releases/download/v4.12.1/gap-4.12.1.tar.gz"
-  sha256 "f9ebef11ee31b210ce36e3c70960742b4e253282bbd5270adc9324273c92b016"
+  url "https://github.com/gap-system/gap/releases/download/v4.12.2/gap-4.12.2.tar.gz"
+  sha256 "672308745eb78a222494ee8dd6786edd5bc331456fcc6456ac064bdb28d587a8"
 
   depends_on "gmp"
   # GAP cannot be built against the native macOS version of readline
