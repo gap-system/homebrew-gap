@@ -3,6 +3,10 @@ class Gap < Formula
   homepage "https://www.gap-system.org/"
   url "https://github.com/gap-system/gap/releases/download/v4.12.2/gap-4.12.2.tar.gz"
   sha256 "672308745eb78a222494ee8dd6786edd5bc331456fcc6456ac064bdb28d587a8"
+  head do
+    url "https://github.com/gap-system/gap.git", branch: "master"
+    depends_on "autoconf" => :build
+  end
 
   depends_on "gmp"
   # GAP cannot be built against the native macOS version of readline
@@ -33,8 +37,14 @@ class Gap < Formula
     # GAP does not support "make install" so it has to be compiled in place
 
     cd libexec do
+      if build.head?
+        system "./autogen.sh"
+      end
       system "./configure", "--with-readline=#{Formula["readline"].opt_prefix}"
       system "make"
+      if build.head? # option for minimal packages? bootstrap-pkg-minimal
+        system "make", "bootstrap-pkg-full"
+      end
     end
 
     # Create a symlink `bin/gap` from the `gap` binary
