@@ -19,8 +19,15 @@ class Gap < Formula
   # So we depend on GNU readline here.
   depends_on "readline"
 
-  # for zeromqinterface package
-  depends_on "zeromq"
+  # for packages
+  depends_on "cddlib"   # CddInterface
+  depends_on "curl"     # curlInterface
+  depends_on "fplll"    # float
+  depends_on "libmpc"   # float
+  depends_on "mpfi"     # float
+  depends_on "mpfr"     # float, normalizinterface
+  depends_on "ncurses"  # browse
+  depends_on "zeromq"   # ZeroMQInterface
 
 
   def install
