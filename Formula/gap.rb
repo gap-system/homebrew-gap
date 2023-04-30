@@ -28,15 +28,11 @@ class Gap < Formula
   depends_on "mpfr"     # float, normalizinterface
   depends_on "ncurses"  # browse
   depends_on "zeromq"   # ZeroMQInterface
-
+  depends_on "singular" # many packages
+  depends_on "pari"     # many packages
 
   def install
 
-    prerequisites_packages = [
-      "atlasrep",
-      "normalizinterface",
-      "semigroups",
-    ]
 
     no_compilation_packages = [
       "atlasrep", "aclib", "agt", "alnuth", "automata", "automgrp",
@@ -58,10 +54,8 @@ class Gap < Formula
       "thelma", "tomlib", "toric", "transgrp", "ugaly", "unipot",
       "unitlib", "utils", "uuid", "walrus", "wedderga", "xmod",
       "xmodalg", "yangbaxter",
-    ]
-
-    # make doc and test targets, I don't actually call them
-    makefile_packages = [
+      # These packages have `doc` and `test` make targets, but we
+      # don't actually call them
       "4ti2interface", "autodoc", "cap", "examplesforhomalg",
       "gaussforhomalg", "generalizedmorphismsforcap", "gradedmodules",
       "gradedringforhomalg", "homalg", "homalgtocas", "io_forhomalg",
@@ -85,20 +79,11 @@ class Gap < Formula
       "guava", "kbmag",
     ]
 
-    # These package have autogen.sh available
-    # I don't think there is a need to run it, but we could if we wanted
-    autogen_packages = [
-      "anupq", "cddinterface", "curlinterface", "digraphs", "ferret",
-      "float", "guava", "io", "normalizinterface", "nq", "semigroups",
-      "simpcomp", "xgap", "zeromqinterface",
-    ]
 
-    # Run special commands after installation
-    special_packages = {
-      # Even with x11 installed, it doesn't seem to work
-      # "xgap" => "cp bin/xgap.sh $GAPROOT/bin/xgap.sh",
-    }
 
+    all_packages = no_compilation_packages
+                     .concat(configure_packages)
+                     .concat(configure_packages)
 
     # Start actually building GAP
     if build.head?
@@ -126,21 +111,15 @@ class Gap < Formula
 
       # The makefiles appear to only be used for docs...
       # The BuildPackages.sh script didn't call them
-      no_compilation_packages.concat(makefile_packages).each do |pkg|
+      all_packages.each do |pkg|
         system "cp", "-R", pkg, "#{libexec}/gap/lib/gap/pkg/"
-      end
-
-      prerequisites_packages.each do |pkg|
         cd pkg do
-          system "./prerequisites.sh", "#{libexec}/gap/lib/gap"
+          if File.exist?("./prerequisites.sh")
+            system "./prerequisites.sh", "#{libexec}/gap/lib/gap"
+          end
         end
       end
 
-      # autogen_packages.each do |pkg|
-      #   cd pkg do
-      #     system "./autogen.sh"
-      #   end
-      # end
       configure_packages.each do |pkg|
         cd pkg do
           system "./configure", "--with-gaproot=#{libexec}/gap/lib/gap"
