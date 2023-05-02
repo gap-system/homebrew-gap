@@ -124,14 +124,14 @@ class Gap < Formula
         cd pkg do
           system "./configure", "--with-gaproot=#{libexec}/gap/lib/gap"
           system "make"
-          system "/usr/bin/rsync", "-aEvL", "bin/", "#{libexec}/gap/lib/gap/pkg/"
+          system "cp", "-R", "bin/", "#{libexec}/gap/lib/gap/pkg/#{pkg}"
         end
       end
       old_configure_packages.each do |pkg|
         cd pkg do
           system "./configure", "#{libexec}/gap/lib/gap"
           system "make"
-          system "/usr/bin/rsync", "-aEvL", "bin/", "#{libexec}/gap/lib/gap/pkg/"
+          system "cp", "-R", "bin/", "#{libexec}/gap/lib/gap/pkg/#{pkg}"
         end
       end
     end
