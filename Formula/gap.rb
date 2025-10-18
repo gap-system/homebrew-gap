@@ -3,6 +3,7 @@ class Gap < Formula
   homepage "https://www.gap-system.org/"
   url "https://github.com/gap-system/gap/releases/download/v4.15.1/gap-4.15.1.tar.gz"
   sha256 "6049d53e99b12e25c2d848db21ac4a06380a46fe4c4157243d556fe06930042c"
+  license "GPL-2.0-or-later"
 
   depends_on "gmp"
   # GAP cannot be built against the native macOS version of readline
