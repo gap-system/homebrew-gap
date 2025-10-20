@@ -26,40 +26,19 @@ class Gap < Formula
 
 
   def install
-    # XXX:  Currently there is no `install` target in `Makefile`.
-    #   According to the manual installation instructions in
-    #
-    #     https://github.com/gap-system/gap/blob/master/INSTALL.md
-    #
-    #   the compiled "bundle" is intended to be used "as is," and there is
-    #   no instructions for how to remove the source and other unnecessary
-    #   files after compilation.  Moreover, the content of the
-    #   subdirectories with special names, such as `bin` and `lib`, is not
-    #   suitable for merging with the content of the corresponding
-    #   subdirectories of `/usr/local`.  The easiest temporary solution seems
-    #   to be to drop the compiled bundle into `<prefix>/libexec` and to
-    #   create a symlink `<prefix>/bin/gap` to the startup script.
-    #   This use of `libexec` seems to contradict Linux Filesystem Hierarchy
-    #   Standard, but is recommended in Homebrew's "Formula Cookbook."
-
-    libexec.install Dir["*"]
-
-    # GAP does not support "make install" so it has to be compiled in place
-
-    cd libexec do
-      system "./configure", "--with-readline=#{Formula["readline"].opt_prefix}"
-      system "make"
-    end
-
-    # Create a symlink `bin/gap` from the `gap` binary
-    bin.install_symlink libexec/"gap" => "gap"
+    system "./configure", *std_configure_args
+    system "make", "install"
 
     ohai "Building included packages. Please be patient, it may take a while"
-    cd libexec/"pkg" do
+
+    system "mkdir", "-p", "#{lib}/gap/"
+    system "cp", "-R", "pkg", "#{lib}/gap/pkg"
+
+    cd lib/"gap/pkg" do
       # NOTE: This script will build most of the packages that require
       # compilation. It is known to produce a number of warnings and
       # error messages, possibly failing to build several packages.
-      system "../bin/BuildPackages.sh", "--with-gaproot=#{libexec}"
+      system buildpath/"bin/BuildPackages.sh", "--with-gaproot=#{lib}/gap"
     end
   end
 
