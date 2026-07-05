@@ -2,8 +2,8 @@ class Gap < Formula
   desc "System for computational discrete algebra"
   # homepage "https://www.gap-system.org/" - too slow for test-bot
   homepage "https://github.com/gap-system/gap"
-  url "https://github.com/gap-system/gap/releases/download/v4.15.1/gap-4.15.1.tar.gz"
-  sha256 "6049d53e99b12e25c2d848db21ac4a06380a46fe4c4157243d556fe06930042c"
+  url "https://github.com/gap-system/gap/releases/download/v4.16.0/gap-4.16.0.tar.gz"
+  sha256 "aaa296b32a5d7bf25fd80f241d23ec1f58b74e991ae730fafe40e54eb3af6e7e"
   license "GPL-2.0-or-later"
 
   bottle do
@@ -12,6 +12,11 @@ class Gap < Formula
     sha256 arm64_tahoe:  "e0e67f712a02b159e1c264f17f825d03fd1ab3cb1ce16ba38d9557e227abd86e"
     sha256 x86_64_linux: "6c7f75a276f24eab2f6135733ed06169079197500aec23445b8bde71dfd91b3f"
   end
+
+  # for some of the packages, e.g. simpcomp
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
+  depends_on "libtool" => :build
 
   # most dependencies are for for packages; only gmp and readline are for GAP itself
   depends_on "cddlib"   # CddInterface
@@ -31,6 +36,8 @@ class Gap < Formula
   # So we depend on GNU readline here.
   depends_on "readline" # - for main GAP
   depends_on "singular" # many packages
+  depends_on "libx11"   # for xgap
+  depends_on "xorgproto" # for xgap
   depends_on "zeromq"   # ZeroMQInterface
 
   on_linux do
@@ -55,7 +62,7 @@ class Gap < Formula
       rm Dir.glob("#{lib}/gap/pkg/**/*.log")
       rm Dir.glob("#{lib}/gap/pkg/**/config.status")
       rm Dir.glob("#{lib}/gap/pkg/**/*.out")
-      rm Dir.glob("#{lib}/gap/pkg/**/*.err") # semigroups fails to build on macOS 26
+      rm Dir.glob("#{lib}/gap/pkg/**/*.err") # Normalizinterface fails to load  on macOS 26
       rm Dir.glob("#{lib}/gap/pkg/**/Makefile")
       rm Dir.glob("#{lib}/gap/pkg/**/libtool")
     end
