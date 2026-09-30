@@ -33,7 +33,7 @@ jobs:
       - name: Push commits
         uses: Homebrew/actions/git-try-push@main
         with:
-          branch: main
+          branch: master
 
       - name: Delete branch
         if: github.event.pull_request.head.repo.fork == false
