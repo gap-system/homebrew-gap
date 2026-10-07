@@ -36,3 +36,5 @@ Credits
 The initial formula for GAP has been provided by Alexey Muranov
 and has been migrated to this repository after the deprecation of 
 `homebrew-science` (<https://github.com/Homebrew/homebrew-science>).
+
+Further credits go to Ivan Andrus, and more recent [contributors](https://github.com/gap-system/homebrew-gap/graphs/contributors?all=1)
